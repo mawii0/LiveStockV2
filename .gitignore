@@ -1,0 +1,67 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Lock files (keep one package manager lock if you prefer, but ignored here for safety)
+# pnpm-lock.yaml
+# package-lock.json
+# yarn.lock
+
+# Build outputs
+dist/
+build/
+out/
+
+# Vite
+.vite/
+*.vite
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# TypeScript
+*.tsbuildinfo
+
+# Testing
+coverage/
+
+# Temporary files
+*.tmp
+.cache/
+
+# Expo / React Native (also covered in subdirectories, kept here for completeness)
+.expo/
+expo-env.d.ts
+web-build/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+/ios
+/android
+.kotlin/
+
+# Supabase
+supabase/.temp/
