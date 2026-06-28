@@ -48,7 +48,7 @@ export function PigAnalysis({ measurements }: PigAnalysisProps) {
 
       {/* Pig silhouette */}
       <Image
-        source={require('../assets/pig_icon.png')}
+        source={require('../assets/pig-model.png')}
         style={styles.pig}
         resizeMode="contain"
       />

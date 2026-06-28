@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { Ionicons } from '@expo/vector-icons';
+import { useState, useEffect } from 'react';
 import type { ScanState } from '../App';
 import type { ScanRecord } from '../shared/types';
 
@@ -19,6 +20,9 @@ interface ScanningScreenProps {
   onViewDetails: () => void;
 }
 
+const SCAN_DURATION_MS = 3000;
+const PROGRESS_STEP_MS = 30;
+
 export function ScanningScreen({
   scanState,
   scan,
@@ -28,16 +32,41 @@ export function ScanningScreen({
   onViewDetails,
 }: ScanningScreenProps) {
   const [permission, requestPermission] = useCameraPermissions();
+  const [progress, setProgress] = useState(0);
+
+  const isScanning = scanState === 'scanning';
+  const isComplete = scanState === 'complete' || scanState === 'complete-feed';
+  const isNoDetect = scanState === 'no-detect' || scanState === 'no-detect-feed';
+
+  useEffect(() => {
+    if (!isScanning) {
+      setProgress(0);
+      return;
+    }
+
+    setProgress(0);
+    const steps = SCAN_DURATION_MS / PROGRESS_STEP_MS;
+    const increment = 100 / steps;
+    let current = 0;
+
+    const interval = setInterval(() => {
+      current += increment;
+      if (current >= 100) {
+        setProgress(100);
+        clearInterval(interval);
+      } else {
+        setProgress(current);
+      }
+    }, PROGRESS_STEP_MS);
+
+    return () => clearInterval(interval);
+  }, [isScanning]);
 
   const showCamera =
     scanState === 'with-feed' ||
     scanState === 'scanning' ||
     scanState === 'complete-feed' ||
     scanState === 'no-detect-feed';
-
-  const isScanning = scanState === 'scanning';
-  const isComplete = scanState === 'complete' || scanState === 'complete-feed';
-  const isNoDetect = scanState === 'no-detect' || scanState === 'no-detect-feed';
 
   const handleMainPress = () => {
     if (isComplete || isNoDetect) {
@@ -90,6 +119,25 @@ export function ScanningScreen({
       {/* Viewfinder */}
       <View style={styles.viewfinder}>
         {showCamera && renderCamera()}
+
+        {/* Scanning progress overlay */}
+        {isScanning && (
+          <View style={styles.progressOverlay}>
+            <View style={styles.progressBox}>
+              <Text style={styles.progressText}>
+                Scanning... {Math.round(progress)}%
+              </Text>
+              <View style={styles.progressTrack}>
+                <View
+                  style={[
+                    styles.progressFill,
+                    { width: `${progress}%` },
+                  ]}
+                />
+              </View>
+            </View>
+          </View>
+        )}
 
         {/* Corner brackets */}
         <View style={[styles.corner, styles.cornerTL]}>
@@ -180,16 +228,15 @@ export function ScanningScreen({
           style={styles.actionButton}
           disabled={isScanning}
         >
-          {isScanning ? (
-            <View style={styles.scanningContent}>
-              <ActivityIndicator size="small" color="#e0e0e0" />
-              <Text style={styles.scanningText}>Scanning...</Text>
-            </View>
-          ) : (
-            <Text style={styles.buttonText}>
-              {isComplete ? 'Scan Now' : isNoDetect ? 'Scan Again' : 'Start Scanning'}
-            </Text>
-          )}
+          <Text style={styles.buttonText}>
+            {isScanning
+              ? 'Scanning...'
+              : isComplete
+                ? 'Scan Now'
+                : isNoDetect
+                  ? 'Scan Again'
+                  : 'Start Scanning'}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -304,6 +351,37 @@ const styles = StyleSheet.create({
     height: 14,
     backgroundColor: '#fff',
     borderRadius: 1,
+  },
+  progressOverlay: {
+    ...StyleSheet.absoluteFill,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0,0,0,0.25)',
+  },
+  progressBox: {
+    width: '72%',
+    backgroundColor: 'rgba(255,255,255,0.95)',
+    borderRadius: 16,
+    padding: 18,
+    alignItems: 'center',
+  },
+  progressText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#111827',
+    marginBottom: 10,
+  },
+  progressTrack: {
+    width: '100%',
+    height: 8,
+    backgroundColor: '#e0e0e0',
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
+  progressFill: {
+    height: '100%',
+    backgroundColor: '#1a9e6e',
+    borderRadius: 4,
   },
   resultWrapper: {
     position: 'absolute',

@@ -95,7 +95,7 @@ export default function App() {
         timestamp: new Date().toISOString(),
       };
       handleScanComplete(record);
-    }, 1500);
+    }, 3000);
   };
 
   const handleScanAgain = () => {
