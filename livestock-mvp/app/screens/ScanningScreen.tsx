@@ -120,13 +120,16 @@ export function ScanningScreen({
       <View style={styles.viewfinder}>
         {showCamera && renderCamera()}
 
-        {/* Scanning progress overlay */}
+        {/* Scanning progress card */}
         {isScanning && (
-          <View style={styles.progressOverlay}>
-            <View style={styles.progressBox}>
-              <Text style={styles.progressText}>
-                Scanning... {Math.round(progress)}%
-              </Text>
+          <View style={styles.resultWrapper}>
+            <View style={[styles.resultCard, styles.resultCardFrosted]}>
+              <View style={styles.cardRow}>
+                <Ionicons name="scan-outline" size={16} color="#1a9e6e" />
+                <Text style={styles.successTitle}>Scanning...</Text>
+                <Text style={styles.progressPercent}>{Math.round(progress)}%</Text>
+              </View>
+
               <View style={styles.progressTrack}>
                 <View
                   style={[
@@ -135,6 +138,10 @@ export function ScanningScreen({
                   ]}
                 />
               </View>
+
+              <Text style={styles.progressSubtext}>
+                Analyzing image and measuring morphometrics
+              </Text>
             </View>
           </View>
         )}
@@ -352,24 +359,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 1,
   },
-  progressOverlay: {
-    ...StyleSheet.absoluteFill,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(0,0,0,0.25)',
-  },
-  progressBox: {
-    width: '72%',
-    backgroundColor: 'rgba(255,255,255,0.95)',
-    borderRadius: 16,
-    padding: 18,
-    alignItems: 'center',
-  },
-  progressText: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#111827',
-    marginBottom: 10,
+  progressPercent: {
+    marginLeft: 'auto',
+    fontSize: 13,
+    fontWeight: 'bold',
+    color: '#1a9e6e',
   },
   progressTrack: {
     width: '100%',
@@ -377,11 +371,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#e0e0e0',
     borderRadius: 4,
     overflow: 'hidden',
+    marginBottom: 8,
   },
   progressFill: {
     height: '100%',
     backgroundColor: '#1a9e6e',
     borderRadius: 4,
+  },
+  progressSubtext: {
+    fontSize: 12,
+    color: '#757575',
   },
   resultWrapper: {
     position: 'absolute',

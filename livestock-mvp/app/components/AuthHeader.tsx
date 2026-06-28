@@ -1,37 +1,14 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 
 interface AuthHeaderProps {
   onBack?: () => void;
-}
-
-function PigSnoutIcon({ size = 18 }: { size?: number }) {
-  return (
-    <View
-      style={[
-        styles.iconContainer,
-        { width: size, height: size, borderRadius: size / 2 },
-      ]}
-    >
-      <View style={[styles.eye, { left: size * 0.28, top: size * 0.3 }]} />
-      <View style={[styles.eye, { right: size * 0.28, top: size * 0.3 }]} />
-      <View
-        style={[
-          styles.snout,
-          {
-            width: size * 0.52,
-            height: size * 0.32,
-            borderRadius: size * 0.16,
-            bottom: size * 0.16,
-          },
-        ]}
-      >
-        <View style={[styles.nostril, { left: size * 0.12 }]} />
-        <View style={[styles.nostril, { right: size * 0.12 }]} />
-      </View>
-    </View>
-  );
 }
 
 export function AuthHeader({ onBack }: AuthHeaderProps) {
@@ -56,10 +33,11 @@ export function AuthHeader({ onBack }: AuthHeaderProps) {
         </TouchableOpacity>
       )}
 
-      <View style={styles.logoRow}>
-        <Text style={styles.logoText}>LiveStock</Text>
-        <PigSnoutIcon size={18} />
-      </View>
+      <Image
+        source={require('../assets/login_screen_logo.png')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
     </LinearGradient>
   );
 }
@@ -68,11 +46,11 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     paddingTop: 52,
-    paddingBottom: 44,
+    paddingBottom: 18,
     paddingHorizontal: 20,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    minHeight: 150,
+    minHeight: 110,
     position: 'relative',
     overflow: 'hidden',
   },
@@ -93,49 +71,13 @@ const styles = StyleSheet.create({
     padding: 4,
     zIndex: 10,
   },
-  logoRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-  logoText: {
-    color: '#fff',
-    fontSize: 26,
-    fontWeight: 'bold',
-    textShadowColor: 'rgba(0,0,0,0.2)',
-    textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 5,
-  },
-  iconContainer: {
-    backgroundColor: '#9ccc65',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 4,
-    marginTop: 3,
+  logo: {
+    width: 130,
+    height: 38,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.15,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  eye: {
-    position: 'absolute',
-    width: 2.5,
-    height: 2.5,
-    borderRadius: 1.25,
-    backgroundColor: '#fff',
-  },
-  snout: {
-    position: 'absolute',
-    backgroundColor: '#fff',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  nostril: {
-    position: 'absolute',
-    width: 2.5,
-    height: 2.5,
-    borderRadius: 1.25,
-    backgroundColor: '#9ccc65',
+    shadowRadius: 4,
+    elevation: 3,
   },
 });
