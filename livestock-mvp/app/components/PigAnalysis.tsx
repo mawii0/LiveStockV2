@@ -10,25 +10,25 @@ export function PigAnalysis({ measurements }: PigAnalysisProps) {
     {
       key: 'dorsalArea',
       label: `${Math.round(measurements.dorsalArea)}cm`,
-      top: '6%',
+      top: '10%',
       left: '46%',
     },
     {
       key: 'dorsalBodyLength',
       label: `${Math.round(measurements.dorsalBodyLength)}cm`,
-      top: '34%',
+      top: '26%',
       left: '6%',
     },
     {
       key: 'heartGirth',
       label: `${Math.round(measurements.heartGirth)}cm`,
-      top: '28%',
+      top: '24%',
       left: '36%',
     },
     {
       key: 'hipWidth',
       label: `${Math.round(measurements.hipWidth)}cm`,
-      top: '30%',
+      top: '26%',
       right: '10%',
     },
   ];
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     width: 270,
     height: 136,
     opacity: 0.95,
+    marginTop: -8,
     marginBottom: -6,
   },
   shadow: {
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
   },
   boxTop: {
     position: 'absolute',
-    top: 26,
+    top: 34,
     left: 22,
     right: 22,
     height: 0,
@@ -114,9 +115,9 @@ const styles = StyleSheet.create({
   },
   boxLeft: {
     position: 'absolute',
-    top: 26,
+    top: 34,
     left: 22,
-    bottom: 54,
+    bottom: 58,
     width: 0,
     borderLeftWidth: 1.5,
     borderLeftColor: 'rgba(160,160,160,0.35)',
@@ -125,9 +126,9 @@ const styles = StyleSheet.create({
   },
   boxRight: {
     position: 'absolute',
-    top: 26,
+    top: 34,
     right: 22,
-    bottom: 54,
+    bottom: 58,
     width: 0,
     borderLeftWidth: 1.5,
     borderLeftColor: 'rgba(160,160,160,0.35)',
@@ -149,8 +150,8 @@ const styles = StyleSheet.create({
   },
   guideLineVertical: {
     position: 'absolute',
-    top: 26,
-    bottom: 54,
+    top: 34,
+    bottom: 58,
     width: 0,
     borderLeftWidth: 1.5,
     borderLeftColor: 'rgba(160,160,160,0.3)',
