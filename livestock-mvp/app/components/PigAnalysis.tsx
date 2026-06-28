@@ -10,32 +10,32 @@ export function PigAnalysis({ measurements }: PigAnalysisProps) {
     {
       key: 'dorsalArea',
       label: `${Math.round(measurements.dorsalArea)}cm`,
-      top: '2%',
-      left: '44%',
+      top: '6%',
+      left: '46%',
     },
     {
       key: 'dorsalBodyLength',
       label: `${Math.round(measurements.dorsalBodyLength)}cm`,
-      top: '30%',
-      left: '4%',
+      top: '34%',
+      left: '6%',
     },
     {
       key: 'heartGirth',
       label: `${Math.round(measurements.heartGirth)}cm`,
-      top: '24%',
-      left: '34%',
+      top: '28%',
+      left: '36%',
     },
     {
       key: 'hipWidth',
       label: `${Math.round(measurements.hipWidth)}cm`,
-      top: '28%',
-      right: '8%',
+      top: '30%',
+      right: '10%',
     },
   ];
 
   return (
     <View style={styles.container}>
-      {/* Top dashed bounding box */}
+      {/* Dashed top bounding box */}
       <View style={styles.boxTop} />
       <View style={styles.boxLeft} />
       <View style={styles.boxRight} />
@@ -48,10 +48,13 @@ export function PigAnalysis({ measurements }: PigAnalysisProps) {
 
       {/* Pig silhouette */}
       <Image
-        source={require('../assets/pig-model.png')}
+        source={require('../assets/pig-model-cropped.png')}
         style={styles.pig}
         resizeMode="contain"
       />
+
+      {/* Shadow below the pig */}
+      <View style={styles.shadow} />
 
       {/* Measurement point bubbles */}
       {points.map((point) => (
@@ -78,22 +81,31 @@ export function PigAnalysis({ measurements }: PigAnalysisProps) {
 
 const styles = StyleSheet.create({
   container: {
-    width: 280,
-    height: 180,
+    width: 320,
+    height: 220,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
   },
   pig: {
-    width: 240,
-    height: 130,
+    width: 270,
+    height: 136,
     opacity: 0.95,
+    marginBottom: -6,
+  },
+  shadow: {
+    position: 'absolute',
+    bottom: 34,
+    width: 200,
+    height: 14,
+    borderRadius: 7,
+    backgroundColor: 'rgba(0,0,0,0.08)',
   },
   boxTop: {
     position: 'absolute',
-    top: 12,
-    left: 12,
-    right: 12,
+    top: 26,
+    left: 22,
+    right: 22,
     height: 0,
     borderTopWidth: 1.5,
     borderTopColor: 'rgba(160,160,160,0.35)',
@@ -102,9 +114,9 @@ const styles = StyleSheet.create({
   },
   boxLeft: {
     position: 'absolute',
-    top: 12,
-    left: 12,
-    bottom: '35%',
+    top: 26,
+    left: 22,
+    bottom: 54,
     width: 0,
     borderLeftWidth: 1.5,
     borderLeftColor: 'rgba(160,160,160,0.35)',
@@ -113,9 +125,9 @@ const styles = StyleSheet.create({
   },
   boxRight: {
     position: 'absolute',
-    top: 12,
-    right: 12,
-    bottom: '35%',
+    top: 26,
+    right: 22,
+    bottom: 54,
     width: 0,
     borderLeftWidth: 1.5,
     borderLeftColor: 'rgba(160,160,160,0.35)',
@@ -124,8 +136,8 @@ const styles = StyleSheet.create({
   },
   guideLine: {
     position: 'absolute',
-    left: 12,
-    right: 12,
+    left: 22,
+    right: 22,
     height: 0,
     borderTopWidth: 1.5,
     borderTopColor: 'rgba(160,160,160,0.3)',
@@ -137,8 +149,8 @@ const styles = StyleSheet.create({
   },
   guideLineVertical: {
     position: 'absolute',
-    top: 12,
-    bottom: '20%',
+    top: 26,
+    bottom: 54,
     width: 0,
     borderLeftWidth: 1.5,
     borderLeftColor: 'rgba(160,160,160,0.3)',
