@@ -6,7 +6,11 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import { LogoHeader } from '../components/LogoHeader';
 
 interface LoginScreenProps {
   onLogin: () => void;
@@ -19,56 +23,92 @@ export function LoginScreen({ onLogin, onGoSignUp }: LoginScreenProps) {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <View style={styles.content}>
-        <View style={styles.spacer} />
+      <LinearGradient
+        colors={['#0d7a6a', '#1b8a6b', '#4caf50']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.header}
+      >
+        <LogoHeader onBack={onGoSignUp} light />
+      </LinearGradient>
 
-        <View style={styles.heading}>
-          <Text style={styles.title}>Welcome back</Text>
-          <Text style={styles.subtitle}>Sign in to your account</Text>
-        </View>
+      <ScrollView
+        style={styles.flex}
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={styles.card}>
+          <Text style={styles.title}>Sign In</Text>
 
-        <View style={styles.fields}>
-          <View>
-            <Text style={styles.label}>Email</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="you@example.com"
-              placeholderTextColor="#bbb"
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
+          <View style={styles.fields}>
+            <View style={styles.inputWrapper}>
+              <Ionicons
+                name="mail-outline"
+                size={18}
+                color="#7cb342"
+                style={styles.inputIcon}
+              />
+              <TextInput
+                style={styles.input}
+                placeholder="Email"
+                placeholderTextColor="#9ccc65"
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+            </View>
+            <View style={styles.inputWrapper}>
+              <Ionicons
+                name="lock-closed-outline"
+                size={18}
+                color="#7cb342"
+                style={styles.inputIcon}
+              />
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                placeholderTextColor="#9ccc65"
+                secureTextEntry
+              />
+            </View>
+            <TouchableOpacity activeOpacity={0.7} style={styles.forgotRow}>
+              <Text style={styles.forgotText}>Forgot password?</Text>
+            </TouchableOpacity>
           </View>
-          <View>
-            <Text style={styles.label}>Password</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="••••••••"
-              placeholderTextColor="#bbb"
-              secureTextEntry
-            />
+
+          <TouchableOpacity
+            activeOpacity={0.85}
+            onPress={onLogin}
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>Sign In</Text>
+          </TouchableOpacity>
+
+          <View style={styles.dividerRow}>
+            <View style={styles.divider} />
+            <Text style={styles.orText}>or</Text>
+            <View style={styles.divider} />
           </View>
-          <TouchableOpacity activeOpacity={0.7} style={styles.forgotRow}>
-            <Text style={styles.forgotText}>Forgot password?</Text>
-          </TouchableOpacity>
+
+          <View style={styles.socialRow}>
+            <TouchableOpacity activeOpacity={0.7} style={styles.socialButton}>
+              <Ionicons name="logo-facebook" size={22} color="#1877F2" />
+            </TouchableOpacity>
+            <TouchableOpacity activeOpacity={0.7} style={styles.socialButton}>
+              <Ionicons name="logo-apple" size={22} color="#000" />
+            </TouchableOpacity>
+            <TouchableOpacity activeOpacity={0.7} style={styles.socialButton}>
+              <Ionicons name="logo-google" size={22} color="#DB4437" />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.footerRow}>
+            <Text style={styles.footerText}>Don&apos;t have an account? </Text>
+            <TouchableOpacity onPress={onGoSignUp} activeOpacity={0.7}>
+              <Text style={styles.footerLink}>Sign Up</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-
-        <TouchableOpacity
-          activeOpacity={0.85}
-          onPress={onLogin}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>Sign In</Text>
-        </TouchableOpacity>
-
-        <View style={styles.footerRow}>
-          <Text style={styles.footerText}>Don&apos;t have an account? </Text>
-          <TouchableOpacity onPress={onGoSignUp} activeOpacity={0.7}>
-            <Text style={styles.footerLink}>Sign Up</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.spacer} />
-      </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }
@@ -76,50 +116,52 @@ export function LoginScreen({ onLogin, onGoSignUp }: LoginScreenProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f1f8e9',
   },
-  content: {
-    flex: 1,
-    paddingHorizontal: 24,
-    justifyContent: 'center',
-  },
-  spacer: {
+  flex: {
     flex: 1,
   },
-  heading: {
-    marginBottom: 32,
+  scrollContent: {
+    flexGrow: 1,
+  },
+  header: {
+    paddingBottom: 30,
+  },
+  card: {
+    flex: 1,
+    backgroundColor: '#f1f8e9',
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    marginTop: -28,
+    paddingHorizontal: 28,
+    paddingTop: 28,
+    paddingBottom: 24,
   },
   title: {
     fontSize: 26,
     fontWeight: 'bold',
-    color: '#111827',
-  },
-  subtitle: {
-    color: '#9ca3af',
-    fontSize: 14,
-    marginTop: 4,
+    color: '#558b2f',
+    marginBottom: 18,
   },
   fields: {
-    gap: 16,
-    marginBottom: 24,
+    gap: 12,
+    marginBottom: 18,
   },
-  label: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: '#6b7280',
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-    marginBottom: 6,
+  inputWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#dcedc8',
+    borderRadius: 14,
+    paddingHorizontal: 14,
+    height: 50,
+  },
+  inputIcon: {
+    marginRight: 10,
   },
   input: {
-    backgroundColor: '#f5f5f5',
-    borderWidth: 1,
-    borderColor: '#ebebeb',
-    borderRadius: 14,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
+    flex: 1,
     fontSize: 14,
-    color: '#111827',
+    color: '#33691e',
   },
   forgotRow: {
     alignSelf: 'flex-end',
@@ -127,32 +169,72 @@ const styles = StyleSheet.create({
   forgotText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#2aac80',
+    color: '#558b2f',
   },
   button: {
-    backgroundColor: '#2aac80',
-    paddingVertical: 16,
-    borderRadius: 16,
+    backgroundColor: '#7cb342',
+    paddingVertical: 15,
+    borderRadius: 28,
     alignItems: 'center',
     marginBottom: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 3,
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '700',
+  },
+  dividerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 14,
+  },
+  divider: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#c5e1a5',
+  },
+  orText: {
+    marginHorizontal: 12,
+    fontSize: 12,
+    color: '#81c784',
+  },
+  socialRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 20,
+    marginBottom: 18,
+  },
+  socialButton: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 6,
+    elevation: 2,
   },
   footerRow: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 24,
+    alignItems: 'center',
   },
   footerText: {
-    fontSize: 13,
-    color: '#9ca3af',
+    fontSize: 12,
+    color: '#81c784',
   },
   footerLink: {
-    fontSize: 13,
-    fontWeight: 'bold',
-    color: '#2aac80',
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#2e7d32',
+    textDecorationLine: 'underline',
   },
 });

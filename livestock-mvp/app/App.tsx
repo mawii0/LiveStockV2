@@ -10,6 +10,7 @@ import { HomeScreen } from './screens/HomeScreen';
 import { ScanningScreen } from './screens/ScanningScreen';
 import { WeightAnalysisScreen } from './screens/WeightAnalysisScreen';
 import { ProfileScreen } from './screens/ProfileScreen';
+import type { ScanRecord } from './shared/types';
 
 export type Screen =
   | 'splash'
@@ -39,6 +40,7 @@ export default function App() {
   const [screen, setScreen] = useState<Screen>('splash');
   const [scanState, setScanState] = useState<ScanState>('idle');
   const [activeTab, setActiveTab] = useState<ActiveTab>('home');
+  const [lastScan, setLastScan] = useState<ScanRecord | null>(null);
 
   useEffect(() => {
     if (screen === 'splash') {
@@ -70,12 +72,29 @@ export default function App() {
     goScanning('with-feed');
   };
 
+  const handleScanComplete = (record: ScanRecord) => {
+    setLastScan(record);
+    setScanState(record.flagged ? 'no-detect-feed' : 'complete-feed');
+  };
+
   const handleScanPress = () => {
     setScanState('scanning');
     setTimeout(() => {
-      const outcomes: ScanState[] = ['complete-feed', 'no-detect-feed'];
-      const pick = outcomes[Math.floor(Math.random() * outcomes.length)];
-      setScanState(pick);
+      const flagged = Math.random() < 0.15;
+      const record: ScanRecord = {
+        mode: 'offline',
+        flagged,
+        weight: flagged ? 0 : 88 + Math.floor(Math.random() * 12),
+        measurements: {
+          dorsalBodyLength: 82 + Math.floor(Math.random() * 10),
+          heartGirth: 64 + Math.floor(Math.random() * 8),
+          hipWidth: 48 + Math.floor(Math.random() * 8),
+          dorsalArea: 44 + Math.floor(Math.random() * 8),
+        },
+        confidence: 'medium',
+        timestamp: new Date().toISOString(),
+      };
+      handleScanComplete(record);
     }, 1500);
   };
 
@@ -118,6 +137,7 @@ export default function App() {
       {screen === 'scanning' && (
         <ScanningScreen
           scanState={scanState}
+          scan={lastScan}
           onBack={goHome}
           onScanPress={handleScanPress}
           onScanAgain={handleScanAgain}
@@ -125,7 +145,7 @@ export default function App() {
         />
       )}
       {screen === 'weightAnalysis' && (
-        <WeightAnalysisScreen onBack={goHome} />
+        <WeightAnalysisScreen onBack={goHome} scan={lastScan} />
       )}
       {screen === 'profile' && (
         <ProfileScreen

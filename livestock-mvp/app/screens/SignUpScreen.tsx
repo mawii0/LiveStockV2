@@ -6,41 +6,15 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import { LogoHeader } from '../components/LogoHeader';
 
 interface SignUpScreenProps {
   onSignUp: () => void;
   onGoLogin: () => void;
-}
-
-function PigIconSmall({ size = 18 }: { size?: number }) {
-  return (
-    <View
-      style={[
-        styles.pigIconContainer,
-        { width: size, height: size, borderRadius: size / 2 },
-      ]}
-    >
-      <View style={[styles.pigEye, { left: size * 0.28, top: size * 0.22 }]} />
-      <View style={[styles.pigEye, { right: size * 0.28, top: size * 0.22 }]} />
-      <View
-        style={[
-          styles.pigSnout,
-          {
-            width: size * 0.45,
-            height: size * 0.3,
-            borderRadius: size * 0.15,
-            bottom: size * 0.18,
-          },
-        ]}
-      >
-        <View style={[styles.pigNostril, { left: size * 0.1 }]} />
-        <View style={[styles.pigNostril, { right: size * 0.1 }]} />
-      </View>
-    </View>
-  );
 }
 
 export function SignUpScreen({ onSignUp, onGoLogin }: SignUpScreenProps) {
@@ -49,28 +23,20 @@ export function SignUpScreen({ onSignUp, onGoLogin }: SignUpScreenProps) {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <View style={styles.flex}>
-        {/* Header gradient */}
-        <LinearGradient
-          colors={['#00695c', '#2e7d32']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          style={styles.header}
-        >
-          <TouchableOpacity
-            onPress={onGoLogin}
-            activeOpacity={0.7}
-            style={styles.backButton}
-          >
-            <Ionicons name="arrow-back" size={24} color="#fff" />
-          </TouchableOpacity>
+      <LinearGradient
+        colors={['#0d7a6a', '#1b8a6b', '#4caf50']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.header}
+      >
+        <LogoHeader onBack={onGoLogin} light />
+      </LinearGradient>
 
-          <View style={styles.logoRow}>
-            <Text style={styles.logoText}>LiveStock</Text>
-            <PigIconSmall size={16} />
-          </View>
-        </LinearGradient>
-
+      <ScrollView
+        style={styles.flex}
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+      >
         {/* Form card */}
         <View style={styles.card}>
           <Text style={styles.title}>Sign Up</Text>
@@ -80,26 +46,26 @@ export function SignUpScreen({ onSignUp, onGoLogin }: SignUpScreenProps) {
               <Ionicons
                 name="person-outline"
                 size={18}
-                color="#81c784"
+                color="#7cb342"
                 style={styles.inputIcon}
               />
               <TextInput
                 style={styles.input}
                 placeholder="Full Name"
-                placeholderTextColor="#81c784"
+                placeholderTextColor="#9ccc65"
               />
             </View>
             <View style={styles.inputWrapper}>
               <Ionicons
                 name="mail-outline"
                 size={18}
-                color="#81c784"
+                color="#7cb342"
                 style={styles.inputIcon}
               />
               <TextInput
                 style={styles.input}
                 placeholder="Email"
-                placeholderTextColor="#81c784"
+                placeholderTextColor="#9ccc65"
                 keyboardType="email-address"
                 autoCapitalize="none"
               />
@@ -108,13 +74,13 @@ export function SignUpScreen({ onSignUp, onGoLogin }: SignUpScreenProps) {
               <Ionicons
                 name="lock-closed-outline"
                 size={18}
-                color="#81c784"
+                color="#7cb342"
                 style={styles.inputIcon}
               />
               <TextInput
                 style={styles.input}
                 placeholder="Password"
-                placeholderTextColor="#81c784"
+                placeholderTextColor="#9ccc65"
                 secureTextEntry
               />
             </View>
@@ -122,13 +88,13 @@ export function SignUpScreen({ onSignUp, onGoLogin }: SignUpScreenProps) {
               <Ionicons
                 name="lock-closed-outline"
                 size={18}
-                color="#81c784"
+                color="#7cb342"
                 style={styles.inputIcon}
               />
               <TextInput
                 style={styles.input}
                 placeholder="Confirm password"
-                placeholderTextColor="#81c784"
+                placeholderTextColor="#9ccc65"
                 secureTextEntry
               />
             </View>
@@ -167,7 +133,7 @@ export function SignUpScreen({ onSignUp, onGoLogin }: SignUpScreenProps) {
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }
@@ -180,28 +146,11 @@ const styles = StyleSheet.create({
   flex: {
     flex: 1,
   },
+  scrollContent: {
+    flexGrow: 1,
+  },
   header: {
-    height: 140,
-    paddingTop: 52,
-    paddingHorizontal: 20,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  backButton: {
-    position: 'absolute',
-    left: 20,
-    top: 52,
-    padding: 4,
-  },
-  logoRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-  logoText: {
-    color: '#fff',
-    fontSize: 22,
-    fontWeight: 'bold',
+    paddingBottom: 30,
   },
   card: {
     flex: 1,
@@ -211,12 +160,12 @@ const styles = StyleSheet.create({
     marginTop: -28,
     paddingHorizontal: 28,
     paddingTop: 28,
-    paddingBottom: 20,
+    paddingBottom: 24,
   },
   title: {
     fontSize: 26,
     fontWeight: 'bold',
-    color: '#2e7d32',
+    color: '#558b2f',
     marginBottom: 18,
   },
   fields: {
@@ -229,7 +178,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#dcedc8',
     borderRadius: 14,
     paddingHorizontal: 14,
-    height: 48,
+    height: 50,
   },
   inputIcon: {
     marginRight: 10,
@@ -241,15 +190,20 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#7cb342',
-    paddingVertical: 14,
+    paddingVertical: 15,
     borderRadius: 28,
     alignItems: 'center',
     marginBottom: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 3,
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   dividerRow: {
     flexDirection: 'row',
@@ -296,36 +250,8 @@ const styles = StyleSheet.create({
   },
   footerLink: {
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: '700',
     color: '#2e7d32',
     textDecorationLine: 'underline',
-  },
-  pigIconContainer: {
-    backgroundColor: '#9ccc65',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 3,
-    marginTop: 2,
-  },
-  pigEye: {
-    position: 'absolute',
-    width: 2,
-    height: 2,
-    borderRadius: 1,
-    backgroundColor: '#fff',
-  },
-  pigSnout: {
-    position: 'absolute',
-    backgroundColor: '#fff',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  pigNostril: {
-    position: 'absolute',
-    width: 2,
-    height: 2,
-    borderRadius: 1,
-    backgroundColor: '#9ccc65',
   },
 });

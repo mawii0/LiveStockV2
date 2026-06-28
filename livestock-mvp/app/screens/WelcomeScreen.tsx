@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 interface WelcomeScreenProps {
   onGetStarted: () => void;
@@ -13,9 +14,15 @@ interface WelcomeScreenProps {
 export function WelcomeScreen({ onGetStarted, onSignIn }: WelcomeScreenProps) {
   return (
     <View style={styles.container}>
-      {/* Background gradient layers */}
-      <View style={styles.gradientBase} />
-      <View style={styles.blob} />
+      <LinearGradient
+        colors={['#0d7a6a', '#1b8a6b', '#4caf50']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={StyleSheet.absoluteFill}
+      />
+
+      {/* Soft glow/blob behind the pig */}
+      <View style={styles.glow} />
 
       <View style={styles.content}>
         <View style={styles.spacer} />
@@ -48,22 +55,17 @@ export function WelcomeScreen({ onGetStarted, onSignIn }: WelcomeScreenProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#00695c',
   },
-  gradientBase: {
-    ...StyleSheet.absoluteFill,
-    backgroundColor: '#00695c',
-  },
-  blob: {
+  glow: {
     position: 'absolute',
-    top: '8%',
-    right: '-25%',
-    width: 320,
-    height: 320,
-    borderRadius: 160,
-    backgroundColor: '#9ccc65',
-    opacity: 0.55,
-    transform: [{ scale: 1.2 }],
+    top: '18%',
+    right: '-10%',
+    width: 280,
+    height: 280,
+    borderRadius: 140,
+    backgroundColor: '#aeea00',
+    opacity: 0.35,
+    transform: [{ scale: 1.1 }],
   },
   content: {
     flex: 1,
@@ -75,26 +77,34 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   heading: {
-    fontSize: 38,
+    fontSize: 36,
     fontWeight: 'bold',
     color: '#fff',
-    lineHeight: 46,
+    lineHeight: 44,
     marginBottom: 48,
+    textShadowColor: 'rgba(0,0,0,0.15)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 6,
   },
   footer: {
     width: '100%',
   },
   button: {
-    backgroundColor: '#a5d6a7',
+    backgroundColor: '#c8e6c9',
     paddingVertical: 18,
-    borderRadius: 16,
+    borderRadius: 14,
     alignItems: 'center',
     marginBottom: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
+    elevation: 4,
   },
   buttonText: {
     color: '#1b5e20',
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   signInRow: {
     flexDirection: 'row',
@@ -102,13 +112,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   subText: {
-    color: 'rgba(255,255,255,0.75)',
+    color: 'rgba(255,255,255,0.8)',
     fontSize: 12,
   },
   signInText: {
     color: '#b2ff59',
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: '700',
     textDecorationLine: 'underline',
   },
 });

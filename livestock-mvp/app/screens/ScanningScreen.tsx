@@ -8,9 +8,11 @@ import {
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { Ionicons } from '@expo/vector-icons';
 import type { ScanState } from '../App';
+import type { ScanRecord } from '../shared/types';
 
 interface ScanningScreenProps {
   scanState: ScanState;
+  scan: ScanRecord | null;
   onBack: () => void;
   onScanPress: () => void;
   onScanAgain: () => void;
@@ -19,6 +21,7 @@ interface ScanningScreenProps {
 
 export function ScanningScreen({
   scanState,
+  scan,
   onBack,
   onScanPress,
   onScanAgain,
@@ -123,7 +126,9 @@ export function ScanningScreen({
               <View style={styles.cardBody}>
                 <View style={styles.cardLeft}>
                   <Text style={styles.cardText}>Swine detected</Text>
-                  <Text style={styles.cardHighlight}>Weight: ~ 90 kg</Text>
+                  <Text style={styles.cardHighlight}>
+                    Weight: ~ {scan?.weight ?? 90} kg
+                  </Text>
                   <TouchableOpacity
                     onPress={onViewDetails}
                     activeOpacity={0.7}
@@ -133,8 +138,12 @@ export function ScanningScreen({
                   </TouchableOpacity>
                 </View>
                 <View style={styles.cardRight}>
-                  <Text style={styles.cardText}>Age: ~ 22 weeks</Text>
-                  <Text style={styles.cardText}>Gender: Female</Text>
+                  <Text style={styles.cardText}>
+                    Length: {scan?.measurements.dorsalBodyLength ?? 0} cm
+                  </Text>
+                  <Text style={styles.cardText}>
+                    Girth: {scan?.measurements.heartGirth ?? 0} cm
+                  </Text>
                   <Text style={styles.cardTime}>Just now</Text>
                 </View>
               </View>
