@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 40,
     marginTop: -32,
     paddingHorizontal: 28,
-    paddingTop: 42,
+    paddingTop: 56,
     paddingBottom: 28,
   },
   title: {

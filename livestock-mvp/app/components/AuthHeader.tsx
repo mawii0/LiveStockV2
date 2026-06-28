@@ -1,5 +1,6 @@
 import {
   View,
+  Text,
   Image,
   TouchableOpacity,
   StyleSheet,
@@ -33,11 +34,14 @@ export function AuthHeader({ onBack }: AuthHeaderProps) {
         </TouchableOpacity>
       )}
 
-      <Image
-        source={require('../assets/login_screen_logo.png')}
-        style={styles.logo}
-        resizeMode="contain"
-      />
+      <View style={styles.logoRow}>
+        <Text style={styles.logoText}>LiveStock</Text>
+        <Image
+          source={require('../assets/livestock_logo.png')}
+          style={styles.logoIcon}
+          resizeMode="contain"
+        />
+      </View>
     </LinearGradient>
   );
 }
@@ -46,11 +50,11 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     paddingTop: 52,
-    paddingBottom: 18,
+    paddingBottom: 14,
     paddingHorizontal: 20,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    minHeight: 110,
+    minHeight: 104,
     position: 'relative',
     overflow: 'hidden',
   },
@@ -71,13 +75,27 @@ const styles = StyleSheet.create({
     padding: 4,
     zIndex: 10,
   },
-  logo: {
-    width: 130,
-    height: 38,
+  logoRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  logoText: {
+    color: '#fff',
+    fontSize: 26,
+    fontWeight: 'bold',
+    textShadowColor: 'rgba(0,0,0,0.2)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 5,
+  },
+  logoIcon: {
+    width: 22,
+    height: 22,
+    marginLeft: 3,
+    marginTop: -2,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.15,
-    shadowRadius: 4,
+    shadowRadius: 3,
     elevation: 3,
   },
 });
