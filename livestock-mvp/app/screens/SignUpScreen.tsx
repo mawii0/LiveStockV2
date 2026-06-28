@@ -9,8 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
-import { LogoHeader } from '../components/LogoHeader';
+import { AuthHeader } from '../components/AuthHeader';
 
 interface SignUpScreenProps {
   onSignUp: () => void;
@@ -23,21 +22,13 @@ export function SignUpScreen({ onSignUp, onGoLogin }: SignUpScreenProps) {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <LinearGradient
-        colors={['#0d7a6a', '#1b8a6b', '#4caf50']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.header}
-      >
-        <LogoHeader onBack={onGoLogin} light />
-      </LinearGradient>
+      <AuthHeader onBack={onGoLogin} />
 
       <ScrollView
         style={styles.flex}
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled"
       >
-        {/* Form card */}
         <View style={styles.card}>
           <Text style={styles.title}>Sign Up</Text>
 
@@ -46,26 +37,26 @@ export function SignUpScreen({ onSignUp, onGoLogin }: SignUpScreenProps) {
               <Ionicons
                 name="person-outline"
                 size={18}
-                color="#7cb342"
+                color="#8bc34a"
                 style={styles.inputIcon}
               />
               <TextInput
                 style={styles.input}
                 placeholder="Full Name"
-                placeholderTextColor="#9ccc65"
+                placeholderTextColor="#9e9d24"
               />
             </View>
             <View style={styles.inputWrapper}>
               <Ionicons
                 name="mail-outline"
                 size={18}
-                color="#7cb342"
+                color="#8bc34a"
                 style={styles.inputIcon}
               />
               <TextInput
                 style={styles.input}
                 placeholder="Email"
-                placeholderTextColor="#9ccc65"
+                placeholderTextColor="#9e9d24"
                 keyboardType="email-address"
                 autoCapitalize="none"
               />
@@ -74,13 +65,13 @@ export function SignUpScreen({ onSignUp, onGoLogin }: SignUpScreenProps) {
               <Ionicons
                 name="lock-closed-outline"
                 size={18}
-                color="#7cb342"
+                color="#8bc34a"
                 style={styles.inputIcon}
               />
               <TextInput
                 style={styles.input}
                 placeholder="Password"
-                placeholderTextColor="#9ccc65"
+                placeholderTextColor="#9e9d24"
                 secureTextEntry
               />
             </View>
@@ -88,13 +79,13 @@ export function SignUpScreen({ onSignUp, onGoLogin }: SignUpScreenProps) {
               <Ionicons
                 name="lock-closed-outline"
                 size={18}
-                color="#7cb342"
+                color="#8bc34a"
                 style={styles.inputIcon}
               />
               <TextInput
                 style={styles.input}
                 placeholder="Confirm password"
-                placeholderTextColor="#9ccc65"
+                placeholderTextColor="#9e9d24"
                 secureTextEntry
               />
             </View>
@@ -115,14 +106,14 @@ export function SignUpScreen({ onSignUp, onGoLogin }: SignUpScreenProps) {
           </View>
 
           <View style={styles.socialRow}>
-            <TouchableOpacity activeOpacity={0.7} style={styles.socialButton}>
-              <Ionicons name="logo-facebook" size={22} color="#1877F2" />
+            <TouchableOpacity activeOpacity={0.7}>
+              <Ionicons name="logo-facebook" size={24} color="#8d8d8d" />
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.7} style={styles.socialButton}>
-              <Ionicons name="logo-apple" size={22} color="#000" />
+            <TouchableOpacity activeOpacity={0.7}>
+              <Ionicons name="logo-apple" size={24} color="#8d8d8d" />
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.7} style={styles.socialButton}>
-              <Ionicons name="logo-google" size={22} color="#DB4437" />
+            <TouchableOpacity activeOpacity={0.7}>
+              <Ionicons name="logo-google" size={24} color="#8d8d8d" />
             </TouchableOpacity>
           </View>
 
@@ -149,36 +140,33 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
   },
-  header: {
-    paddingBottom: 30,
-  },
   card: {
     flex: 1,
     backgroundColor: '#f1f8e9',
-    borderTopLeftRadius: 28,
-    borderTopRightRadius: 28,
-    marginTop: -28,
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    marginTop: -32,
     paddingHorizontal: 28,
-    paddingTop: 28,
-    paddingBottom: 24,
+    paddingTop: 32,
+    paddingBottom: 28,
   },
   title: {
-    fontSize: 26,
+    fontSize: 28,
     fontWeight: 'bold',
     color: '#558b2f',
-    marginBottom: 18,
+    marginBottom: 24,
   },
   fields: {
-    gap: 12,
-    marginBottom: 18,
+    gap: 14,
+    marginBottom: 24,
   },
   inputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#dcedc8',
-    borderRadius: 14,
-    paddingHorizontal: 14,
-    height: 50,
+    borderRadius: 16,
+    paddingHorizontal: 16,
+    height: 52,
   },
   inputIcon: {
     marginRight: 10,
@@ -189,11 +177,11 @@ const styles = StyleSheet.create({
     color: '#33691e',
   },
   button: {
-    backgroundColor: '#7cb342',
-    paddingVertical: 15,
+    backgroundColor: '#8bc34a',
+    paddingVertical: 16,
     borderRadius: 28,
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: 18,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.1,
@@ -201,14 +189,14 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   buttonText: {
-    color: '#fff',
+    color: '#1b5e20',
     fontSize: 16,
     fontWeight: '700',
   },
   dividerRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 14,
+    marginBottom: 18,
   },
   divider: {
     flex: 1,
@@ -218,26 +206,13 @@ const styles = StyleSheet.create({
   orText: {
     marginHorizontal: 12,
     fontSize: 12,
-    color: '#81c784',
+    color: '#9e9d24',
   },
   socialRow: {
     flexDirection: 'row',
     justifyContent: 'center',
-    gap: 20,
-    marginBottom: 18,
-  },
-  socialButton: {
-    width: 46,
-    height: 46,
-    borderRadius: 23,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 6,
-    elevation: 2,
+    gap: 32,
+    marginBottom: 20,
   },
   footerRow: {
     flexDirection: 'row',
@@ -246,12 +221,12 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 12,
-    color: '#81c784',
+    color: '#8d8d8d',
   },
   footerLink: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#2e7d32',
+    color: '#00695c',
     textDecorationLine: 'underline',
   },
 });
