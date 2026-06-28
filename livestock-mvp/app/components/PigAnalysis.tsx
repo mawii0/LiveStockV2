@@ -10,33 +10,35 @@ export function PigAnalysis({ measurements }: PigAnalysisProps) {
     {
       key: 'dorsalArea',
       label: `${Math.round(measurements.dorsalArea)}cm`,
-      top: '6%',
-      left: '46%',
-    },
-    {
-      key: 'heartGirth',
-      label: `${Math.round(measurements.heartGirth)}cm`,
-      top: '28%',
-      left: '30%',
-    },
-    {
-      key: 'hipWidth',
-      label: `${Math.round(measurements.hipWidth)}cm`,
-      top: '26%',
-      right: '12%',
+      top: '2%',
+      left: '44%',
     },
     {
       key: 'dorsalBodyLength',
       label: `${Math.round(measurements.dorsalBodyLength)}cm`,
-      top: '44%',
-      left: '2%',
+      top: '30%',
+      left: '4%',
+    },
+    {
+      key: 'heartGirth',
+      label: `${Math.round(measurements.heartGirth)}cm`,
+      top: '24%',
+      left: '34%',
+    },
+    {
+      key: 'hipWidth',
+      label: `${Math.round(measurements.hipWidth)}cm`,
+      top: '28%',
+      right: '8%',
     },
   ];
 
   return (
     <View style={styles.container}>
-      {/* Dashed bounding box */}
-      <View style={styles.boundingBox} />
+      {/* Top dashed bounding box */}
+      <View style={styles.boxTop} />
+      <View style={styles.boxLeft} />
+      <View style={styles.boxRight} />
 
       {/* Horizontal dashed guide line */}
       <View style={[styles.guideLine, styles.guideLineMiddle]} />
@@ -83,20 +85,42 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   pig: {
-    width: 230,
+    width: 240,
     height: 130,
     opacity: 0.95,
   },
-  boundingBox: {
+  boxTop: {
     position: 'absolute',
     top: 12,
     left: 12,
     right: 12,
-    bottom: 12,
-    borderWidth: 1.5,
-    borderColor: 'rgba(150,150,150,0.35)',
+    height: 0,
+    borderTopWidth: 1.5,
+    borderTopColor: 'rgba(160,160,160,0.35)',
     borderStyle: 'dashed',
-    borderRadius: 2,
+    borderRadius: 1,
+  },
+  boxLeft: {
+    position: 'absolute',
+    top: 12,
+    left: 12,
+    bottom: '35%',
+    width: 0,
+    borderLeftWidth: 1.5,
+    borderLeftColor: 'rgba(160,160,160,0.35)',
+    borderStyle: 'dashed',
+    borderRadius: 1,
+  },
+  boxRight: {
+    position: 'absolute',
+    top: 12,
+    right: 12,
+    bottom: '35%',
+    width: 0,
+    borderLeftWidth: 1.5,
+    borderLeftColor: 'rgba(160,160,160,0.35)',
+    borderStyle: 'dashed',
+    borderRadius: 1,
   },
   guideLine: {
     position: 'absolute',
@@ -104,7 +128,7 @@ const styles = StyleSheet.create({
     right: 12,
     height: 0,
     borderTopWidth: 1.5,
-    borderTopColor: 'rgba(150,150,150,0.3)',
+    borderTopColor: 'rgba(160,160,160,0.3)',
     borderStyle: 'dashed',
     borderRadius: 1,
   },
@@ -114,10 +138,10 @@ const styles = StyleSheet.create({
   guideLineVertical: {
     position: 'absolute',
     top: 12,
-    bottom: 12,
+    bottom: '20%',
     width: 0,
     borderLeftWidth: 1.5,
-    borderLeftColor: 'rgba(150,150,150,0.3)',
+    borderLeftColor: 'rgba(160,160,160,0.3)',
     borderStyle: 'dashed',
     borderRadius: 1,
   },
@@ -130,14 +154,14 @@ const styles = StyleSheet.create({
   },
   bubble: {
     backgroundColor: '#e0e0e0',
-    borderRadius: 16,
+    borderRadius: 18,
     paddingHorizontal: 10,
-    paddingVertical: 5,
-    minWidth: 44,
+    paddingVertical: 6,
+    minWidth: 46,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.08,
+    shadowOpacity: 0.06,
     shadowRadius: 3,
     elevation: 2,
   },
