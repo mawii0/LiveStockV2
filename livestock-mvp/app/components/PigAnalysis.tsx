@@ -10,20 +10,20 @@ export function PigAnalysis({ measurements }: PigAnalysisProps) {
     {
       key: 'dorsalArea',
       label: `${Math.round(measurements.dorsalArea)}cm`,
-      top: '10%',
+      top: '5%',
       left: '46%',
     },
     {
       key: 'dorsalBodyLength',
       label: `${Math.round(measurements.dorsalBodyLength)}cm`,
-      top: '26%',
+      top: '32%',
       left: '6%',
     },
     {
       key: 'heartGirth',
       label: `${Math.round(measurements.heartGirth)}cm`,
       top: '24%',
-      left: '36%',
+      left: '32%',
     },
     {
       key: 'hipWidth',
@@ -35,6 +35,16 @@ export function PigAnalysis({ measurements }: PigAnalysisProps) {
 
   return (
     <View style={styles.container}>
+      {/* Pig silhouette */}
+      <Image
+        source={require('../assets/pig-model-cropped.png')}
+        style={styles.pig}
+        resizeMode="contain"
+      />
+
+      {/* Shadow below the pig */}
+      <View style={styles.shadow} />
+
       {/* Dashed top bounding box */}
       <View style={styles.boxTop} />
       <View style={styles.boxLeft} />
@@ -45,16 +55,6 @@ export function PigAnalysis({ measurements }: PigAnalysisProps) {
 
       {/* Vertical dashed guide line */}
       <View style={[styles.guideLineVertical, styles.guideLineCenter]} />
-
-      {/* Pig silhouette */}
-      <Image
-        source={require('../assets/pig-model-cropped.png')}
-        style={styles.pig}
-        resizeMode="contain"
-      />
-
-      {/* Shadow below the pig */}
-      <View style={styles.shadow} />
 
       {/* Measurement point bubbles */}
       {points.map((point) => (
